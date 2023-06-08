@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmv7glr70ok8o"]
+
+[ext_resource type="Script" path="res://_gd_socketio_client_test/gd_socketio_client_test.gd" id="1_pbrbu"]
+
+[node name="test" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pbrbu")
+
+[node name="content" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="info" type="Label" parent="content"]
+layout_mode = 2
+text = "Click \"open\" to start a connection."
+
+[node name="open" type="Button" parent="content"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Open"

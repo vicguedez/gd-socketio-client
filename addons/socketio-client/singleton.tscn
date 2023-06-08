@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2ofs7ysjtgtt"]
+
+[sub_resource type="GDScript" id="GDScript_1medb"]
+script/source = "extends Node
+
+func new_timer() -> Timer:
+	var timer := Timer.new()
+	
+	self.add_child(timer)
+	
+	return timer
+"
+
+[node name="socketio" type="Node"]
+script = SubResource("GDScript_1medb")
