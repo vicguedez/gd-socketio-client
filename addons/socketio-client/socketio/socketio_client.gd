@@ -1,6 +1,8 @@
 extends RefCounted
 class_name SocketIoClient
 
+const EVENT_ARGS_MISMATCH_ERR = "Cannot call event %s on %s:%s, method argument count is %s but event has %s."
+
 class ManagerOptions:
 	var host: String = 'ws://localhost'
 	var port: int = 0
@@ -392,7 +394,16 @@ class Socket:
 				
 				continue
 			
-			callback.callv(packet.data)
+			if callback.get_argument_count() != packet.data.size():
+				push_error(EVENT_ARGS_MISMATCH_ERR % [
+					event,
+					callback.get_object(),
+					callback.get_method(),
+					callback.get_argument_count(),
+					packet.data.size(),
+				])
+			else:
+				callback.callv(packet.data)
 			
 			if one_shot:
 				to_remove.append(listener_id)
