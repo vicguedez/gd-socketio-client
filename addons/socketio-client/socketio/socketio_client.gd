@@ -171,6 +171,12 @@ class Manager:
 		
 		_engine.write(encoded)
 	
+	func reconnection_attempts_left() -> int:
+		if _options.reconnection_attempts == INF:
+			return INF
+		
+		return _options.reconnection_attempts - _reconnection_attempts
+	
 	func do_open() -> void:
 		if _state != State.CLOSED:
 			return
