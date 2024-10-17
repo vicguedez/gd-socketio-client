@@ -60,8 +60,9 @@ class Socket:
 	
 	func _check_ping_timeout() -> void:
 		var msec_since_last_ping = Time.get_ticks_msec() - _ping_last_msec
+		var timeout_in_ms = _ping_interval + _ping_timeout
 		
-		if msec_since_last_ping < _ping_timeout:
+		if msec_since_last_ping < timeout_in_ms:
 			return
 		
 		_transport.do_close(EngineIoTransport.CloseStatusCode.GONE, 'Ping timeout reached')
