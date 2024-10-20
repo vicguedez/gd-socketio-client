@@ -118,19 +118,11 @@ class Websocket:
 		
 		_writable = false
 		
-		var idx = 0
-		var max_idx = packet_list.size() - 1
-		
-		while idx <= max_idx:
-			var is_last_packet: bool = idx == max_idx
-			var packet: EngineIoParser.Packet = packet_list[idx]
-			
+		for packet: EngineIoParser.Packet in packet_list:
 			_wsp.send(
 					_encode.as_string(packet).to_utf8_buffer(),
 					WebSocketPeer.WRITE_MODE_TEXT
 				)
-			
-			idx += 1
 		
 		_drain.call_deferred()
 	
