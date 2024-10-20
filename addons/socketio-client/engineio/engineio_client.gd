@@ -119,10 +119,8 @@ class Socket:
 				_on_message_packet(new_packet)
 	
 	func _on_transport_drain() -> void:
-		if _prev_write_buffer_size == _write_buffer.size():
-			_write_buffer.clear()
-		else:
-			_write_buffer = _write_buffer.slice(0, _prev_write_buffer_size - 1)
+		for _i in _prev_write_buffer_size:
+			_write_buffer.pop_front()
 		
 		_prev_write_buffer_size = 0
 		
@@ -176,8 +174,10 @@ class Socket:
 			
 			return
 		
-		_transport.send(_write_buffer)
-		_prev_write_buffer_size = _write_buffer.size()
+		var to_be_sent := _write_buffer.duplicate()
+		
+		_prev_write_buffer_size = to_be_sent.size()
+		_transport.send(to_be_sent)
 		
 		flush.emit()
 	
