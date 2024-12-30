@@ -409,7 +409,7 @@ class Socket:
 				to_remove.append(listener_id)
 		
 		for id in to_remove:
-			_listeners[event].erase(id)
+			_listeners.get(event, {}).erase(id)
 	
 	func _destroy() -> void:
 		_manager.open.disconnect(_on_manager_open)
